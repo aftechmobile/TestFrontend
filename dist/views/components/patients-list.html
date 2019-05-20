@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="../styles/patients/bundle.css">
+<div ng-controller="PatientListController">
+  <ul class="mdc-list mdc-list--two-line at-list">
+    <li class="mdc-list-item at-list-item" tabindex="0" ng-repeat="patient in patients" ng-click="select(patient)">
+      <span class="mdc-list-item__text">
+        <span class="mdc-list-item__primary-text">{{patient.first_name}} {{patient.last_name}}</span>
+        <span class="mdc-list-item__secondary-text">{{patient.pcp}}</span>
+      </span>
+    </li>
+  </ul>
+</div>

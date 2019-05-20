@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Patients</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="styles/app/bundle.css">
+    <!-- END_STYLES -->
+
+    <!-- SCRIPTS -->
+    <script src="scripts/app/main.js" charset="utf-8"></script>
+    <script src="scripts/dialogs/main.js" charset="utf-8"></script>
+    <script src="scripts/patients/main.js" charset="utf-8"></script>
+    <script src="scripts/patients/detail/main.js" charset="utf-8"></script>
+    <!-- END_SCRIPTS -->
+  </head>
+  <body ng-controller="MainController">
+    <div class="row-container full-width-vp full-height-vp">
+      <div class="row row-short">
+        <div id="header" class="flex">
+          <div class="container col full-width">
+            <h1 class="title mdc-typography--headline4">
+              <b>Patients</b>
+            </h1>
+            <h1 class="title mdc-typography--headline6">All your patients in one place</h1>
+          </div>
+          <div class="container col flex-end margin-bottom-m30">
+            <div class="col-container">
+              <h1 class="title nav-item selected-item mdc-typography--headline6">
+                Dashboard
+              </h1>
+              <h1 class="title nav-item mdc-typography--headline6" ng-click="showUploadModal()">
+                Upload
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div id="container" class="full-height">
+          <div class="content-container col-container full-height">
+            <div class="col-short divider-right">
+              <list ng-include="'views/components/patients-list.html'"></list>
+            </div>
+            <div class="col flex-fit-col background-placeholder">
+              <patient ng-include="'views/components/patients-list-detail.html'"></patient>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <dialogs ng-include="'views/components/dialogs.html'"></dialogs>
+  </body>
+</html>

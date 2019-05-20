@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="../styles/patients/detail/bundle.css">
+<div ng-controller="PatientDetailController" class="flex padding-p-5" ng-repeat="patient in [$root.selectedPatient]">
+  <div class="container col full-width" ng-show="patient">
+    <div class="col-container">
+      <div class="row-container col">
+        <h1 class="margin-none mdc-typography--headline4">
+          <b>{{patient.first_name}} {{patient.last_name}}</b>
+        </h1>
+        <h1 class="margin-none mdc-typography--headline6">{{patient.pcp}}</h1>
+      </div>
+      <div class="col flex-1">
+        <button class="mdc-button mdc-button--raised" ng-click="edit(patient)">Edit</button>
+      </div>
+    </div>
+    <div class="col-container padding-vertical-20px">
+      <div class="col">
+        <h1 class="margin-none mdc-typography--body2">
+          <b>Sex</b>
+        </h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.gender}}</h1>
+      </div>
+      <div class="col">
+        <h1 class="margin-none mdc-typography--body2">
+          <b>DOB</b>
+        </h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.dob}}</h1>
+      </div>
+      <div class="col">
+        <h1 class="margin-none mdc-typography--body2">
+          <b>MRN</b>
+        </h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.mrn}}</h1>
+      </div>
+      <div class="col">
+        <h1 class="margin-none mdc-typography--body2">
+          <b>Habits</b>
+        </h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.habits}}</h1>
+      </div>
+      <div class="col">
+        <h1 class="margin-none mdc-typography--body2">
+          <b>Lifestyle</b>
+        </h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.lifestyle}}</h1>
+      </div>
+    </div>
+    <div class="divider">
+
+    </div>
+    <div class="row-container">
+      <div class="mdc-tab-bar" role="tablist" ng-show="patient">
+        <div class="mdc-tab-scroller">
+          <div class="mdc-tab-scroller__scroll-area">
+            <div class="mdc-tab-scroller__scroll-content">
+              <button class="mdc-tab" role="tab" aria-selected="true" tabindex="0" ng-repeat="key in $root.selectedPatientTestsKeys" ng-click="$root.handleTabChange(key)">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__text-label">{{key}}</span>
+                </span>
+                <span class="mdc-tab-indicator">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row-container">
+      <div class="grid padding-top-p-5">
+        <div id="chart-data"></div>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog {{editingModal.showing && 'mdc-dialog--open'}}"
+    role="alertdialog"
+    aria-modal="true"
+    aria-labelledby="my-dialog-title"
+    aria-describedby="my-dialog-content"
+  >
+    <div class="mdc-dialog__container">
+      <div class="mdc-dialog__surface">
+        <h2 class="mdc-dialog__title" id="my-dialog-title">{{editingModal.title}}</h2>
+        <div class="mdc-dialog__content" id="edit-content">
+          {{editingModal.body}}
+          <div class="mdc-dialog__content">
+            <div class="mdc-text-field margin-8px" ng-repeat="key in patientKeys">
+              <input class="mdc-text-field__input" ng-model="patient[key]" ng-change="onValueChanged(key)">
+              <div class="mdc-line-ripple"></div>
+              <label class="mdc-floating-label">{{key.split('_').join(' ').toUpperCase()}}</label>
+            </div>
+          </div>
+        </div>
+        <footer class="mdc-dialog__actions">
+          <button type="button" class="mdc-button mdc-dialog__button" ng-click="editingModal.onCancel()" data-mdc-dialog-action="no">
+            <span class="mdc-button__label">Cancel</span>
+          </button>
+          <button type="button" class="mdc-button mdc-dialog__button" ng-click="editingModal.onConfirm()" data-mdc-dialog-action="yes">
+            <span class="mdc-button__label">Save</span>
+          </button>
+        </footer>
+      </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+  </div>
+</div>
