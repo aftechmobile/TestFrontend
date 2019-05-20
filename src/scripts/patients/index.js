@@ -14,4 +14,13 @@ app.controller('PatientListController', function ($scope, $rootScope, $element, 
       $rootScope.selectedElement = patient;
     })
   }
+
+  $rootScope.updateSidebar = function() {
+    $http.get('/patients', {}).then(({ data }) => {
+      $timeout(function() {
+        $rootScope.loadingDialog = false;
+        $scope.patients = data.patients;
+      });
+    })
+  }
 });

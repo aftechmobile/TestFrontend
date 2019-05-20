@@ -3183,9 +3183,12 @@ app.controller('PatientDetailController', function ($scope, $rootScope, $timeout
     showing: false,
     body: 'Edit your desired fields and hit save.',
     onConfirm: () => {
-      $timeout(function() {
-        $scope.editingModal.showing = false
-      })
+      $http.put('/patients/' + $scope.patient.id, $scope.patient).then(function(res) {
+        $timeout(function() {
+          $scope.editingModal.showing = false
+          $rootScope.updateSidebar();
+        });
+      });
     },
     onCancel: () => {
       $timeout(function() {
@@ -3201,6 +3204,7 @@ app.controller('PatientDetailController', function ($scope, $rootScope, $timeout
     if (newValue != undefined) {
       $http.get('/patients/' + newValue.id, {}).then(({data}) => {
         const patient = data.patient;
+        delete patient.$$hashkey
         dates = data.tests.map(x=>x.date);
         tests = data.tests.map(x=>{
           delete x.date
