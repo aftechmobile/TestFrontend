@@ -38,6 +38,8 @@ app.controller('PatientDetailController', function ($scope, $rootScope, $timeout
         dates = data.tests.map(x=>x.date);
         tests = data.tests.map(x=>{
           delete x.date
+          delete x.id
+          delete x.mrn
           return x
         });
         $timeout(function() {
@@ -74,6 +76,18 @@ app.controller('PatientDetailController', function ($scope, $rootScope, $timeout
         });
       });
     })
+  }
+
+  $scope.delete = function(patient) {
+    $rootScope.dialog.showing = true;
+    $rootScope.dialog.body = 'Are you sure you want to delete this patient?';
+    $rootScope.dialog.onConfirm = function() {
+      $http.delete('/patients/' + $scope.patient.id, {}).then(function(result) {
+        $timeout(function() {
+          location.reload();
+        });
+      });
+    }
   }
 
   $scope.valueFor = function(key) {
@@ -152,5 +166,5 @@ function setupChart(data, dates) {
   ];
 
   /* Initialize the chart with the above settings */
-  chart = new Chartist.Line('#chart-data', data, options, responsiveOptions);
+  chart = new Chartist.Bar('#chart-data', data, options, responsiveOptions);
 }

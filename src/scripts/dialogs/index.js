@@ -51,6 +51,6 @@ app.controller('DialogController', function($scope, $timeout, $rootScope, $http)
   }
 
   $rootScope.loadingDialog = {
-    showing: true
+    showing: false
   }
 });
