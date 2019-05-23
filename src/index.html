@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Patients</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="./main.css">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <!-- END_STYLES -->
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js" charset="utf-8"></script>
+
+    <script src="./app.js" charset="utf-8"></script>
+    <script src="./services/alert.js" charset="utf-8"></script>
+    <script src="./services/client.js" charset="utf-8"></script>
+    <script src="./services/data_store.js" charset="utf-8"></script>
+    <script src="./components/patient/patient.ctrl.js" charset="utf-8"></script>
+    <script src="./components/patient/patient.ctrl.js" charset="utf-8"></script>
+    <script src="./components/search/search.ctrl.js" charset="utf-8"></script>
+    <script src="./components/list/list.ctrl.js" charset="utf-8"></script>
+    <script src="./components/alert/alert.ctrl.js" charset="utf-8"></script>
+    <script src="./components/header/header.ctrl.js" charset="utf-8"></script>
+    <!-- END_SCRIPTS -->
+  </head>
+  <body>
+    <div class="row-container full-width-vp full-height-vp">
+      <div>
+        <header ng-include="'./components/header/header.tpl.html'"></header>
+      </div>
+      <div class="row">
+        <div id="container" class="full-height">
+          <div class="content-container col-container full-height">
+            <div class="col-short divider-right">
+              <list ng-include="'./components/list/list.tpl.html'"></list>
+            </div>
+            <div class="col flex-fit-col background-placeholder">
+              <patient ng-include="'./components/patient/patient.tpl.html'"></patient>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <dialogs ng-include="'./components/alert/alert.tpl.html'"></dialogs>
+  </body>
+</html>

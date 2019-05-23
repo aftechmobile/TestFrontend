@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="./components/list/list.css">
+<search ng-include="'./components/search/search.tpl.html'"></search>
+<ul class="mdc-list mdc-list--two-line at-list" ng-controller="ListController">
+  <li class="mdc-list-item at-list-item" tabindex="0" ng-hide="data">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">No data available</span>
+      <span class="mdc-list-item__secondary-text">Use the search bar above to look up patients.</span>
+    </span>
+  </li>
+  <li class="mdc-list-item at-list-item" tabindex="0" ng-repeat="item in data | filter: itemFilter" ng-click="select(item.associatedObject)">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">{{item.title}}</span>
+      <span class="mdc-list-item__secondary-text">{{item.subtitle}}</span>
+    </span>
+  </li>
+</ul>

@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="./components/alert/alert.css">
+<div id="alert" ng-controller="AlertController">
+  <div class="mdc-dialog {{dialog.showing && 'mdc-dialog--open'}}"
+    role="alertdialog"
+    aria-modal="true"
+    aria-labelledby="my-dialog-title"
+    aria-describedby="my-dialog-content"
+  >
+    <div class="mdc-dialog__container">
+      <div class="mdc-dialog__surface">
+        <h2 class="mdc-dialog__title" id="my-dialog-title">{{dialog.title}}</h2>
+        <div class="mdc-dialog__content" id="my-dialog-content">
+          {{dialog.body}}
+        </div>
+        <footer class="mdc-dialog__actions" ng-show="dialog.hasActions">
+          <button type="button" class="mdc-button mdc-dialog__button" ng-click="dialog._onCancel()" data-mdc-dialog-action="no" ng-show="dialog.cancel_title">
+            <span class="mdc-button__label">{{dialog.cancel_title}}</span>
+          </button>
+          <button type="button" class="mdc-button mdc-dialog__button" ng-click="dialog._onConfirm()" data-mdc-dialog-action="yes" ng-show="dialog.confirmation_title">
+            <span class="mdc-button__label">{{dialog.confirmation_title}}</span>
+          </button>
+        </footer>
+      </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+  </div>
+</div>
