@@ -14,6 +14,19 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
   $scope.searchChanged = function(event) {
     if (event.keyCode != 13) { return; }
     const search = $scope.search.split(' ');
+    if (search.length < 2) {
+      Alert.show({
+        title: 'Patients',
+        body: 'Please use first name and last name for your search',
+        showing: true,
+        hasActions: true,
+        confirmation_title: 'OK',
+        onConfirm: function() {
+          Alert.hide();
+        }
+      })
+      return;
+    }
     Alert.show({
       title: 'Loading',
       body: 'Please wait...',
