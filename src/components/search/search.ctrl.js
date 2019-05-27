@@ -11,6 +11,8 @@ function searchPatient(searchable, Client, callable, cb) {
 
 app.controller('SearchController', function($scope, $timeout, $rootScope, $http, Alert, Client, DataStore) {
   function handlePatientsResponse(response, error) {
+    const search = $scope.search.split(' ');
+    
     if (error) {
       Alert.show({
         title: 'Patients',
@@ -56,8 +58,10 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
       });
       return;
     }
+    
     if (event.keyCode != 13) { return; }
     const search = $scope.search.split(' ');
+
     if (search.length < 2) {
       Alert.show({
         title: 'Patients',
@@ -71,6 +75,7 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
       })
       return;
     }
+
     Alert.show({
       title: 'Loading',
       body: 'Please wait...',
