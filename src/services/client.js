@@ -1,18 +1,42 @@
 const baseUrl = "https://api.mobrise.us";
 
-function get_request(url, callable) {
-  var req = {
-    json: true,
-    headers: {
-      'Accept': 'application/json'
+function get_request(url, callable, data) {
+  if (data) {
+    var req = data
+    return callable.post(url, req);
+  } else {
+    var req = {
+      json: true,
+      headers: {
+        'Accept': 'application/json'
+      }
     }
+    return callable.get(url, req);
   }
-  return callable.get(url, req);
 }
 
 app.service('Client', function() {
 
   const scope = {};
+
+  scope.findPatientWithQuery = function(query, callable) {
+    const params = Object.keys(query).map(x => x + "=" + query[x]).join('&')
+    const url_query = `/patients?${params}`;
+    const url = baseUrl + url_query;
+    return get_request(url, callable)
+  }
+
+  scope.getPatientDetail = function(id, callable) {
+    const url_query = '/patients/' + id;
+    const url = baseUrl + url_query;
+    return get_request(url, callable)
+  }
+
+  scope.upload = function(data, callable) {
+    const url_query = '/upload';
+    const url = baseUrl + url_query;
+    return get_request(url, callable, data)
+  }
 
   scope.findPatientWithName = function(given, family, callable) {
     const query = `/Patient?given=${given}&family=${family}`;
@@ -23,13 +47,6 @@ app.service('Client', function() {
   scope.getPatientWithId = function(id) {
     const query = `/Patient/${id}`;
     const url = baseUrl + query;
-    return get_request(url, callable)
-  }
-
-  scope.findPatientWithQuery = function(query, callable) {
-    const params = Object.keys(query).map(x => x + "=" + query[x]).join('&')
-    const url_query = `/patients?${params}`;
-    const url = baseUrl + url_query;
     return get_request(url, callable)
   }
 

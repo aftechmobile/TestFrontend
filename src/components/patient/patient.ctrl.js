@@ -6,7 +6,7 @@ var keys = [];
 var dates = [];
 var chart = {};
 
-app.controller('PatientDetailController', function ($scope, $rootScope, $timeout, $element, $attrs, $http) {
+app.controller('PatientDetailController', function ($scope, $rootScope, $timeout, $element, $attrs, $http, Client) {
   $scope.editingModal = {
     showing: false,
     body: 'Edit your desired fields and hit save.',
@@ -32,6 +32,37 @@ app.controller('PatientDetailController', function ($scope, $rootScope, $timeout
     if (newValue != undefined) {
       $rootScope.loadingDialog = false;
       $rootScope.selectedPatient = newValue;
+      if (newValue != undefined) {
+        Client.getPatientDetail(newValue.id, $http).then(({data}) => {
+          const patient = data.patient;
+          delete patient.$$hashkey
+          dates = data.tests.map(x=>x.date);
+          tests = data.tests.map(x=>{
+            delete x.date
+            delete x.id
+            delete x.mrn
+            return x
+          });
+          $timeout(function() {
+            $rootScope.loadingDialog = false;
+            $rootScope.selectedPatient = patient;
+            $scope.tempPatient = patient;
+            keys = Object.keys(tests[0] || {});
+            $rootScope.handleTabChange = handleTabChange;
+            $rootScope.selectedPatientTestsKeys = keys.map(x=>x.split('_').join(' '));
+  
+            $timeout(function() {
+              var selector = document.querySelector('.mdc-tab-bar');
+              const tabBar = new mdc.tabBar.MDCTabBar(selector);
+              tabBar.activateTab(0);
+              setupChart(tests.map(x=> {
+                const value = x[keys[0]]
+                return value
+              }), dates);
+            })
+          })
+        });
+      }
     }
   });
 

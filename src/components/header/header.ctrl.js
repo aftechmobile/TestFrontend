@@ -1,17 +1,27 @@
-app.controller('HeaderController', function($scope, $timeout, $rootScope, $http, Alert) {
+app.controller('HeaderController', function($scope, $timeout, $rootScope, $http, Alert, Client) {
   $rootScope.$watch('csv', function(newValue, oldValue, scope) {
     let type = $rootScope.uploadType;
     let data = newValue;
 
     if (!data) { return }
-
-    $http.post('/upload', {
-      type,
-      data
-    }).then(function(response) {
+    
+    Client.upload({
+      data, type
+    }, $http).then(function(response) {
       const responseData = response.data
       console.log(responseData);
-    })
+      
+      Alert.show({
+        title: 'Patients',
+        body: 'Data upload successful',
+        showing: true,
+        hasActions: true,
+        confirmation_title: 'OK',
+        onConfirm: function() {
+          location.reload();
+        }
+      });
+    });
   })
 
   $scope.chooseFile = function() {
