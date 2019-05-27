@@ -14,6 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js" charset="utf-8"></script>
 
     <script src="./app.js" charset="utf-8"></script>
+    <script src="./directives/fileread.js" charset="utf-8"></script>
     <script src="./services/alert.js" charset="utf-8"></script>
     <script src="./services/client.js" charset="utf-8"></script>
     <script src="./services/data_store.js" charset="utf-8"></script>
@@ -44,5 +45,6 @@
       </div>
     </div>
     <dialogs ng-include="'./components/alert/alert.tpl.html'"></dialogs>
+    <input id="file-input" accept=".csv" type="file" name="CSV" style="display: none;" fileread="csv" />
   </body>
 </html>

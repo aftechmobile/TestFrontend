@@ -1,25 +1,13 @@
 app.service('Alert', function() {
 
-  const _onCancel = function() {
-    dialog.onCancel();
-    hide();
-  }
-
-  const _onConfirm = function() {
-    dialog.onConfirm();
-    hide();
-  }
-
   var dialog = {
     title: 'Patients',
     body: '',
     showing: false,
     confirmation_title: '',
     cancel_title: '',
-    _onCancel,
-    _onConfirm,
-    onCancel: function() {},
-    onConfirm: function() {},
+    onCancel: function(dialog) {},
+    onConfirm: function(dialog) {},
     hasActions: false
   }
 
@@ -49,8 +37,6 @@ app.service('Alert', function() {
       showing: false,
       confirmation_title: '',
       cancel_title: '',
-      _onCancel,
-      _onConfirm,
       onCancel: function() {},
       onConfirm: function() {},
       hasActions: false

@@ -5,6 +5,10 @@
   --mdc-theme-on-secondary: #fff !important;
 }
 
+::-webkit-scrollbar { 
+  display: none; 
+}
+
 body {
   margin: 0; }
 
