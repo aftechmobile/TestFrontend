@@ -8,8 +8,8 @@ app.controller('ListController', function($scope, $timeout, $rootScope, $http, A
     const items = DataStore.patients || [];
     const data = items.map(function(item) {
       return {
-        title: first(item.resource, 'name', { text: '' }).text,
-        subtitle: first(item.resource, 'careProvider', { display: '' }).display,
+        title: item.first_name + " " + item.last_name,
+        subtitle: item.pcp,
         associatedObject: item
       }
     }).filter(function(item) {
