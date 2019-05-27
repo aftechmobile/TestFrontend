@@ -33,7 +33,7 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
           });
         } else {
           const data = response.data;
-          if (data.total > 0) {
+          if (data.patients.length > 0) {
             $timeout(function() {
               DataStore.patients = data.patients;
               DataStore.notify();
