@@ -10,6 +10,42 @@ function searchPatient(searchable, Client, callable, cb) {
 }
 
 app.controller('SearchController', function($scope, $timeout, $rootScope, $http, Alert, Client, DataStore) {
+  function handlePatientsResponse(response, error) {
+    if (error) {
+      Alert.show({
+        title: 'Patients',
+        body: `No data available for search (${search}).`,
+        showing: true,
+        hasActions: true,
+        confirmation_title: 'Continue',
+        onConfirm: function() {
+          Alert.hide();
+        }
+      });
+    } else {
+      const data = response.data;
+      if (data.patients.length > 0) {
+        $timeout(function() {
+          DataStore.patients = data.patients;
+          DataStore.notify();
+          Alert.hide();
+        });
+      } else {
+        Alert.show({
+          title: 'Patients',
+          body: `No data available for search (${search}).`,
+          showing: true,
+          hasActions: true,
+          confirmation_title: 'Continue',
+          onConfirm: function() {
+            Alert.hide();
+          }
+        });
+      }
+    }
+  }
+
+
   $scope.placeholder = "Search"
   $scope.searchChanged = function(event) {
     if (event.keyCode != 13) { return; }
@@ -33,41 +69,16 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
       showing: true,
     }).then(function() {
       searchPatient(search, Client, $http, function(response, error) {
-        if (error) {
-          Alert.show({
-            title: 'Patients',
-            body: `No data available for search (${search}).`,
-            showing: true,
-            hasActions: true,
-            confirmation_title: 'Continue',
-            onConfirm: function() {
-              Alert.hide();
-            }
-          });
-        } else {
-          const data = response.data;
-          if (data.patients.length > 0) {
-            $timeout(function() {
-              DataStore.patients = data.patients;
-              DataStore.notify();
-              Alert.hide();
-            });
-          } else {
-            Alert.show({
-              title: 'Patients',
-              body: `No data available for search (${search}).`,
-              showing: true,
-              hasActions: true,
-              confirmation_title: 'Continue',
-              onConfirm: function() {
-                Alert.hide();
-              }
-            });
-          }
-        }
+        handlePatientsResponse(response, error);
       });
     });
   };
+
+  Client.findPatientWithQuery({ }, $http).then(function(response) {
+    handlePatientsResponse(response);
+  }).catch(function(error) {
+    handlePatientsResponse(null, error);
+  });
 
   const selector = document.querySelector('.mdc-text-field');
   this.searchField = new mdc.textField.MDCTextField(selector);
