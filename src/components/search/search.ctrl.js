@@ -48,6 +48,14 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
 
   $scope.placeholder = "Search"
   $scope.searchChanged = function(event) {
+    if (!$scope.search || $scope.search == '') {
+      Client.findPatientWithQuery({ }, $http).then(function(response) {
+        handlePatientsResponse(response);
+      }).catch(function(error) {
+        handlePatientsResponse(null, error);
+      });
+      return;
+    }
     if (event.keyCode != 13) { return; }
     const search = $scope.search.split(' ');
     if (search.length < 2) {

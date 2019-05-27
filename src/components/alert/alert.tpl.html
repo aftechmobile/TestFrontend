@@ -19,6 +19,9 @@
           <button type="button" class="mdc-button mdc-dialog__button" ng-click="dialog.onConfirm()" data-mdc-dialog-action="yes" ng-show="dialog.confirmation_title">
             <span class="mdc-button__label">{{dialog.confirmation_title}}</span>
           </button>
+          <button type="button" class="mdc-button mdc-dialog__button" ng-click="add.onConfirm()" data-mdc-dialog-action="yes" ng-repeat="add in dialog.additionalButtons">
+            <span class="mdc-button__label">{{add.title}}</span>
+          </button>
         </footer>
       </div>
     </div>

@@ -45,7 +45,13 @@ app.controller('HeaderController', function($scope, $timeout, $rootScope, $http,
       confirmation_title: 'Tests',
       cancel_title: 'Patients',
       onConfirm: test,
-      onCancel: patient
+      onCancel: patient,
+      additionalButtons: [{
+        title: 'Cancel',
+        onConfirm: function() {
+          Alert.hide();
+        }
+      }]
     });
   }
 });
