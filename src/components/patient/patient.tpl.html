@@ -4,9 +4,9 @@
     <div class="col-container">
       <div class="row-container col">
         <h1 class="margin-none mdc-typography--headline4">
-          <b>{{patient.resource.name[0].text}}</b>
+          <b>{{patient.first_name}} {{patient.last_name}}</b>
         </h1>
-        <h1 class="margin-none mdc-typography--headline6">{{patient.resource.careProvider[0].display}}</h1>
+        <h1 class="margin-none mdc-typography--headline6">{{patient.pcp}}</h1>
       </div>
       <div class="col flex-1">
         <!-- <button class="mdc-button mdc-button--raised" ng-click="edit(patient)">Edit</button>
@@ -18,19 +18,19 @@
         <h1 class="margin-none mdc-typography--body2">
           <b>Sex</b>
         </h1>
-        <h1 class="margin-none mdc-typography--body1">{{patient.resource.gender}}</h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.gender}}</h1>
       </div>
       <div class="col">
         <h1 class="margin-none mdc-typography--body2">
           <b>DOB</b>
         </h1>
-        <h1 class="margin-none mdc-typography--body1">{{patient.resource.birthDate}}</h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.dob}}</h1>
       </div>
       <div class="col">
         <h1 class="margin-none mdc-typography--body2">
           <b>MRN</b>
         </h1>
-        <h1 class="margin-none mdc-typography--body1">{{patient.resource.identifier[0].value}}</h1>
+        <h1 class="margin-none mdc-typography--body1">{{patient.mrn}}</h1>
       </div>
     </div>
     <div class="divider">

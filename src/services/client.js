@@ -1,10 +1,11 @@
-const baseUrl = "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2";
+const baseUrl = "https://api.mobrise.us";
 
 function get_request(url, callable) {
   var req = {
-   headers: {
-     'Accept': 'application/json'
-   }
+    json: true,
+    headers: {
+      'Accept': 'application/json'
+    }
   }
   return callable.get(url, req);
 }
@@ -25,9 +26,9 @@ app.service('Client', function() {
     return get_request(url, callable)
   }
 
-  scope.findPatientWithQuery = function(query) {
+  scope.findPatientWithQuery = function(query, callable) {
     const params = Object.keys(query).map(x => x + "=" + query[x]).join('&')
-    const url_query = `/Patient?${params}`;
+    const url_query = `/patients?${params}`;
     const url = baseUrl + url_query;
     return get_request(url, callable)
   }
