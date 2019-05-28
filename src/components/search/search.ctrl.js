@@ -34,6 +34,7 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
       if (data.patients.length > 0) {
         $timeout(function() {
           DataStore.patients = data.patients;
+          DataStore.searching = true;
           DataStore.notify();
           Alert.hide();
         });
