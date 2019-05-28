@@ -11,8 +11,13 @@ function searchPatient(searchable, Client, callable, cb) {
 
 app.controller('SearchController', function($scope, $timeout, $rootScope, $http, Alert, Client, DataStore) {
   function handlePatientsResponse(response, error) {
-    const search = $scope.search.split(' ');
-    
+    const search = "";
+    try {
+      search = $scope.search.split(' ');
+    } catch(error) {
+      
+    }
+
     if (error) {
       Alert.show({
         title: 'Patients',
