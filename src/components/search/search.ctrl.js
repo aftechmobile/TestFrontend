@@ -10,7 +10,7 @@ function searchPatient(searchable, Client, callable, cb) {
 }
 
 app.controller('SearchController', function($scope, $timeout, $rootScope, $http, Alert, Client, DataStore) {
-  function handlePatientsResponse(response, error) {
+  function handlePatientsResponse(response, error, initial) {
     const search = "";
     try {
       search = $scope.search.split(' ');
@@ -34,7 +34,7 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
       if (data.patients.length > 0) {
         $timeout(function() {
           DataStore.patients = data.patients;
-          DataStore.searching = true;
+          DataStore.searching = initial && true;
           DataStore.notify();
           Alert.hide();
         });
@@ -94,9 +94,9 @@ app.controller('SearchController', function($scope, $timeout, $rootScope, $http,
   };
 
   Client.findPatientWithQuery({ }, $http).then(function(response) {
-    handlePatientsResponse(response);
+    handlePatientsResponse(response, null, true);
   }).catch(function(error) {
-    handlePatientsResponse(null, error);
+    handlePatientsResponse(null, error, true);
   });
 
   const selector = document.querySelector('.mdc-text-field');
