@@ -2,7 +2,7 @@ meals.controller('ingredient-form', function($scope, $http, $timeout) {
   $scope.types = [];
   $scope.selectedType = null;
   $scope.search = function() {
-    $http.get('http://192.168.1.3:3001/ingredients/types/search/' + $scope.searchQuery).then(function({data}) {
+    $http.get('http://stag.mobrise.us/ingredients/types/search/' + $scope.searchQuery).then(function({data}) {
       $timeout(function() {
         $scope.types = data
       })
