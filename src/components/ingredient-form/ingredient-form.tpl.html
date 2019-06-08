@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="./components/ingredient-form/ingredient-form.css">
+<div class="container-fluid" ng-controller="ingredient-form">
+  <div class="row">
+    <div class="col-sm" style="padding-top: 20pt; padding-bottom: 20pt; box-sizing: content-box">
+        <div class="card">
+          <div class="card-body">
+            <form class="flex-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" type="text" class="form-control" ng-model="name" placeholder="All Grain No Pain">
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" ng-model="isWhole" id="isWhole">
+                <label class="form-check-label" for="isWhole">Is a whole</label>
+              </div>
+              <div class="form-group" ng-hide="isWhole">
+                <label for="carbs">Carbs per cup</label>
+                <input id="carbs" type="number" class="form-control" ng-model="carbs" placeholder="15">
+              </div>
+              <div class="form-group">
+                <label for="search">Ingredient Type</label>
+                <input id="search" type="text" class="form-control" ng-model="searchQuery" ng-change="search()" placeholder="Search Types">
+              </div>
+              <div class="form-group" ng-if="searchQuery">
+                <ul class="list-group list-group-horizontal">
+                  <li class="list-group-item {{selectedType.id === item.id ? 'selected' : ''}}" ng-repeat="item in types" ng-click="setType(item)">{{item.name}}</li>
+                </uld>
+              </div>
+              <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
