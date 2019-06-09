@@ -1,6 +1,6 @@
 meals.controller('type-form', function($scope, $http, $timeout) {
   $timeout(function() {
-    $http.get('http://192.168.1.3:3001/ingredients/types/conversion').then(function({data}) {
+    $http.get('https://stag.mobrise.us/ingredients/types/conversion').then(function({data}) {
       $scope.conversionTypes = data
       $scope.selectedType = data[0];
     });
@@ -8,7 +8,7 @@ meals.controller('type-form', function($scope, $http, $timeout) {
 
   $scope.create = function() {
     $scope.selectedType = $scope.conversionTypes[document.getElementById('typeSelect').selectedIndex];
-    $http.post('http://192.168.1.3:3001/ingredients/types', {
+    $http.post('https://stag.mobrise.us/ingredients/types', {
       name: $scope.name,
       carb_conversion_id: $scope.selectedType.id
     }).then(function({data}) {

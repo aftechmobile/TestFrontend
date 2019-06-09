@@ -1,7 +1,7 @@
 meals.controller('ingredient-form', function($scope, $http, $timeout) {
   $scope.ingredientTypes = [];
   $scope.selectedType = null;
-  $http.get('http://192.168.1.3:3001/ingredients/types/').then(function({data}) {
+  $http.get('https://stag.mobrise.us/ingredients/types/').then(function({data}) {
     $timeout(function() {
       $scope.ingredientTypes = data
       $scope.selectedType = data[0];
@@ -20,7 +20,7 @@ meals.controller('ingredient-form', function($scope, $http, $timeout) {
     if (isNaN(carbs)) {
       carbs = 0
     }
-    $http.post('http://192.168.1.3:3001/ingredients/', {
+    $http.post('https://stag.mobrise.us/ingredients/', {
       carbs,
       cups: 1,
       oz: 8,
