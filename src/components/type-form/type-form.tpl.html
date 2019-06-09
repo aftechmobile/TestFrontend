@@ -1,6 +1,9 @@
 <div class="container-fluid" ng-controller="type-form">
-  <div class="row">
-    <div class="col-sm" style="padding-top: 20pt; padding-bottom: 20pt; box-sizing: content-box">
+  <div class="row" style="height: 100vh;">
+    <div class="col-sm justify-content-center align-items-center d-flex flex-column" style="padding-top: 20pt; padding-bottom: 20pt; box-sizing: content-box">
+        <div class="alert {{status.status}}" role="alert">
+          {{status.message}}
+        </div>
         <div class="card">
           <div class="card-body">
             <form class="flex-row">
@@ -9,8 +12,8 @@
                 <input id="name" type="text" class="form-control" ng-model="name" placeholder="All Grain No Pain">
               </div>
               <div class="form-group">
-                <label for="divisor">Target</label>
-                <select class="form-control" id="divisor">
+                <label for="divisor">Type</label>
+                <select class="form-control" id="typeSelect">
                   <option ng-repeat="item in conversionTypes">{{item.name}}</option>
                 </select>
               </div>

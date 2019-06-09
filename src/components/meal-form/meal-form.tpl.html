@@ -1,7 +1,10 @@
 <div class="container-fluid" ng-controller="meal-form">
-  <div class="row">
-    <div class="col-sm" style="padding-top: 20pt; padding-bottom: 20pt; box-sizing: content-box">
-        <div class="card">
+  <div class="row" style="height: 100vh;">
+    <div class="col-sm justify-content-center align-items-center d-flex flex-column" style="padding-top: 20pt; padding-bottom: 20pt; box-sizing: content-box">
+      <div class="alert {{status.status}}" role="alert">
+        {{status.message}}
+      </div>
+        <div class="card" style="width: 500px;">
           <div class="card-body">
             <form class="flex-row">
               <div class="form-group">
@@ -19,21 +22,37 @@
                   <option>Women</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="search">Search</label>
-                <input id="search" type="text" class="form-control" ng-model="searchQuery" placeholder="Search Ingredients">
-              </div>
-              <div class="form-group" ng-if="searchQuery">
-                <ul class="list-group list-group-horizontal">
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Morbi leo risus</li>
-                </ul>
-              </div>
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">New meal time</button>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
         </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <form class="flex-row">
+          <div class="form-group" style="margin: 20px">
+              <label for="name">Meal time name</label>
+              <input id="name" type="text" class="form-control" ng-model="name" placeholder="All Grain No Pain">
+              <div class="dropdown-divider"></div>
+              <label for="search">Search</label>
+              <input id="search" type="text" class="form-control" placeholder="Search Ingredients" style="
+                border-bottom-left-radius: 0px; 
+                border-bottom-right-radius: 0px;
+              " ng-model="searchQuery" ng-change="searchIngredients()">
+              <select multiple class="form-control" id="ingredient_list" style="
+                border-top-left-radius: 0px; 
+                border-top-right-radius: 0px;
+                margin-bottom: 8px;
+              " ng-options="item.name for item in ingredients" ng-model="ingredients" ng-change="ingredientsChanged()">
+              </select>
+              <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>

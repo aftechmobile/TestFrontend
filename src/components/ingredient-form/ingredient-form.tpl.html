@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./components/ingredient-form/ingredient-form.css">
 <div class="container-fluid" ng-controller="ingredient-form">
-  <div class="row">
-    <div class="col-sm" style="padding-top: 20pt; padding-bottom: 20pt; box-sizing: content-box">
+  <div class="row" style="height: 100vh;">
+    <div class="col-sm justify-content-center align-items-center d-flex flex-column" style="padding-top: 20pt; padding-bottom: 20pt; box-sizing: content-box">
         <div class="alert {{status.status}}" role="alert">
           {{status.message}}
         </div>
@@ -14,20 +14,25 @@
               </div>
               <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" ng-model="isWhole" id="isWhole">
-                <label class="form-check-label" for="isWhole">Is a whole</label>
+                <label class="form-check-label" for="isWhole">Is a whole portion?</label>
               </div>
               <div class="form-group">
                 <label for="carbs">Carbs per serving</label>
                 <input id="carbs" type="number" class="form-control" ng-model="carbs" placeholder="15">
               </div>
-              <div class="form-group">
-                <label for="search">Ingredient Type</label>
-                <input id="search" type="text" class="form-control" ng-model="searchQuery" ng-change="search()" placeholder="Search Types">
-              </div>
-              <div class="form-group">
-                <ul class="list-group list-group-horizontal">
-                  <li class="list-group-item {{selectedType.id === item.id ? 'selected' : ''}}" ng-repeat="item in types" ng-click="setType(item)">{{item.name}}</li>
-                </ul>
+              <div class="form-group row justify-content-center align-items-center">
+                <div class="col-sm">
+                  <label for="divisor">Type</label>
+                  <select class="form-control" id="typeSelect">
+                    <option ng-repeat="item in ingredientTypes">{{item.name}}</option>
+                  </select>
+                  <small id="emailHelp" class="form-text text-muted">Select your ingredient type, or create a new one instead.</small>
+                </div>
+                <div class="col-sm">
+                  <a class="btn btn-primary mb-2" href="./ingredientTypes.html" target="_blank">
+                    Create New
+                  </a>
+                </div>
               </div>
               <button class="btn btn-primary" ng-click="create()">Create</button>
             </form>

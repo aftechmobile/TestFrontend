@@ -1,13 +1,12 @@
 meals.controller('ingredient-form', function($scope, $http, $timeout) {
-  $scope.types = [];
+  $scope.ingredientTypes = [];
   $scope.selectedType = null;
-  $scope.search = function() {
-    $http.get('http://192.168.1.3:3001/ingredients/types/search/' + $scope.searchQuery).then(function({data}) {
-      $timeout(function() {
-        $scope.types = data
-      })
+  $http.get('http://192.168.1.3:3001/ingredients/types/').then(function({data}) {
+    $timeout(function() {
+      $scope.ingredientTypes = data
+      $scope.selectedType = data[0];
     })
-  }
+  })
 
   $scope.setType = function(type) {
     $timeout(function() {
@@ -16,6 +15,7 @@ meals.controller('ingredient-form', function($scope, $http, $timeout) {
   }
 
   $scope.create = function() {
+    $scope.selectedType = $scope.ingredientTypes[document.getElementById('typeSelect').selectedIndex];
     var carbs = parseInt($scope.carbs);
     if (isNaN(carbs)) {
       carbs = 0
@@ -37,7 +37,7 @@ meals.controller('ingredient-form', function($scope, $http, $timeout) {
         $scope.searchQuery = '';
         $scope.types = [];
         $scope.status = {
-          message: data.inserted > 0 ? 'Succesfully added new ingredient.' : 'Failed to create ingredient.',
+          message: data.inserted > 0 ? 'Succesfully added new ingredient. ' + data.generated_keys.join(', ') : 'Failed to create ingredient.',
           status: data.inserted > 0 ? 'alert-success' : 'alert-danger'
         }
       })
