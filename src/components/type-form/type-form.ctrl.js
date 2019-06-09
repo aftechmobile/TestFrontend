@@ -8,12 +8,26 @@ meals.controller('type-form', function($scope, $http, $timeout) {
 
   $scope.create = function() {
     $scope.selectedType = $scope.conversionTypes[document.getElementById('typeSelect').selectedIndex];
-    $http.post('https://stag.mobrise.us/ingredients/types', {
+    const data = {
       name: $scope.name,
       carb_conversion_id: $scope.selectedType.id
-    }).then(function({data}) {
+    }
+
+    if (
+      !data.name || !data.carb_conversion_id
+    ) {
       $timeout(function() {
-        $scope.name = '';
+        $scope.status = {
+          message: 'Please check the information provided and try again.',
+          status: 'alert-danger'
+        }
+      });
+      return;
+    }
+
+    $http.post('https://stag.mobrise.us/ingredients/types', data).then(function({data}) {
+      $timeout(function() {
+        $scope.name = null;
         $scope.selectedType = null;
         $scope.status = {
           message: data.inserted > 0 ? 'Succesfully added new ingredient type.' + data.generated_keys.join(', ') : 'Failed to create ingredient type.',

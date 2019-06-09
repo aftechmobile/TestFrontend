@@ -20,7 +20,8 @@ meals.controller('ingredient-form', function($scope, $http, $timeout) {
     if (isNaN(carbs)) {
       carbs = 0
     }
-    $http.post('https://stag.mobrise.us/ingredients/', {
+
+    const requestData = {
       carbs,
       cups: 1,
       oz: 8,
@@ -28,7 +29,27 @@ meals.controller('ingredient-form', function($scope, $http, $timeout) {
       isWhole: $scope.isWhole,
       name: $scope.name,
       type_id: $scope.selectedType.id
-    }).then(function({data}) {
+    }
+
+    if (
+      !carbs ||
+      !cups ||
+      !oz ||
+      !tbsp ||
+      !isWhole ||
+      !name ||
+      !type_id
+    ) {
+      $timeout(function() {
+        $scope.status = {
+          message: 'Please check the information provided and try again.',
+          status: 'alert-danger'
+        }
+      });
+      return;
+    }
+
+    $http.post('https://stag.mobrise.us/ingredients/', requestData).then(function({data}) {
       $timeout(function() {
         $scope.isWhole = false;
         $scope.name = '';
