@@ -4,55 +4,60 @@
       <div class="alert {{status.status}}" role="alert">
         {{status.message}}
       </div>
-        <div class="card" style="width: 500px;">
-          <div class="card-body">
-            <form class="flex-row">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input id="name" type="text" class="form-control" ng-model="name" placeholder="All Grain No Pain">
-              </div>
-              <div class="form-group">
-                <label for="range">Calories Range</label>
-                <input id="range" type="number" class="form-control" ng-model="range" placeholder="1600">
-              </div>
-              <div class="form-group">
-                <label for="target">Target</label>
-                <select class="form-control" id="target">
-                  <option>Men</option>
-                  <option>Women</option>
-                </select>
-              </div>
-              <button class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">New meal time</button>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
+      <div class="card" style="width: 500px;">
+        <div class="card-body">
+          <form class="flex-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input id="name" type="text" class="form-control" ng-model="name" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="range">Calories Range</label>
+              <input id="range" type="number" class="form-control" ng-model="range" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="target">Target</label>
+              <select class="form-control" id="target" ng-model="target">
+                <option>Men</option>
+                <option>Women</option>
+              </select>
+            </div>
+            <div class="form-group" ng-repeat="section in sections">
+              <label for="name"><b>{{section.toUpperCase()}}</b></label>
+              <div class="dropdown-divider"></div>
+              <ul class="list-group">
+                <li class="list-group-item" ng-hide="ingredients[section][0]">No Ingredients</li>
+                <li class="list-group-item" ng-repeat="item in ingredients[section]">{{item.name}}</li>
+              </ul>
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#ingredientModal" style="margin-top: 8px;" data-section="{{section}}">Add Ingredient</button>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="createMeal()">Create</button>
+          </form>
         </div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <form class="flex-row">
-          <div class="form-group" style="margin: 20px">
-              <label for="name">Meal time name</label>
-              <input id="name" type="text" class="form-control" ng-model="name" placeholder="All Grain No Pain">
-              <div class="dropdown-divider"></div>
-              <label for="search">Search</label>
-              <input id="search" type="text" class="form-control" placeholder="Search Ingredients" style="
-                border-bottom-left-radius: 0px; 
-                border-bottom-right-radius: 0px;
-              " ng-model="searchQuery" ng-change="searchIngredients()">
-              <select multiple class="form-control" id="ingredient_list" style="
-                border-top-left-radius: 0px; 
-                border-top-right-radius: 0px;
-                margin-bottom: 8px;
-              " ng-options="item.name for item in ingredients" ng-model="ingredients" ng-change="ingredientsChanged()">
-              </select>
-              <button type="submit" class="btn btn-primary">Create</button>
-            </div>
-        </form>
+  <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <form class="flex-row">
+            <div class="form-group" style="margin: 20px">
+                <label id="title" for="search">Search ingredients for {{selectedSection}}</label>
+                <input id="search" type="text" class="form-control" placeholder="Search Ingredients" style="
+                  border-bottom-left-radius: 0px; 
+                  border-bottom-right-radius: 0px;
+                " ng-model="searchQuery" ng-change="searchIngredients()">
+                <select multiple class="form-control" id="ingredient_list" style="
+                  border-top-left-radius: 0px; 
+                  border-top-right-radius: 0px;
+                  margin-bottom: 8px;
+                " ng-options="item.name for item in fetchedIngredients" ng-model="selectedIngredients" ng-change="ingredientsChanged()">
+                </select>
+                <button type="submit" class="btn btn-primary" ng-click="addIngredient(selectedIngredients, selectedSection)">Add</button>
+              </div>
+          </form>
+      </div>
     </div>
   </div>
 </div>
