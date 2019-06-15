@@ -73,7 +73,7 @@ meals.controller('meal-form', function($scope, $http, $timeout) {
         $scope.target = "";
         $scope.range = "";
         $scope.status = {
-          message: data.inserted > 0 ? 'Succesfully added new ingredient type.' + data.generated_keys.join(', ') : 'Failed to create ingredient type.',
+          message: data.inserted > 0 ? 'Succesfully added new meal. ' + data.generated_keys.join(', ') : 'Failed to create meal.',
           status: data.inserted > 0 ? 'alert-success' : 'alert-danger'
         }
       })
